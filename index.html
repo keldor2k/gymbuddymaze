@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Gym Buddy Maze &#128170;</title>
+        <meta name="description" content="No gym buddy at hand? Try Gym Buddy Maze!">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="nofollow">
+        <meta name="googlebot" content="nofollow">
+        <link rel="icon" href="favicon.ico">
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="http://gymbuddymaze.com/">
+        <meta property="og:title" content="Gym Buddy Maze &#128170;">
+        <meta property="og:description" content="No gym buddy at hand? Try Gym Buddy Maze!">
+        <meta property="og:image" content="https://outerhaven.spdns.de/img/hero/hero-1.jpg">
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="http://gymbuddymaze.com/">
+        <meta property="twitter:title" content="Gym Buddy Maze &#128170;">
+        <meta property="twitter:description" content="No gym buddy at hand? Try Gym Buddy Maze!">
+        <meta property="twitter:image" content="https://outerhaven.spdns.de/img/hero/hero-1.jpg">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.slim.js"></script>
+        <style>
+        
+        html {
+        height: 100%;
+        display: table;
+        margin: auto;
+        }
+        
+        body {
+        display: table-cell;
+        vertical-align: middle;
+        }
+        
+        </style>
+    </head>
+    <body>
+        <p id="title"></p>
+        <audio id="player" controls>
+            Sorry, your browser does not support HTML5 audio.
+        </audio>
+        <script>
+        var audio
+        var current
+        var tracks
+        var tracklist_json = '{ "tracks" : [' +
+        '{ "title":"Lightweight !!  &#128170;", "url":"audio/lightweight.ogg" },' +
+        '{ "title":"3x8 Junge", "url":"audio/3x8Junge.ogg" },' +
+        '{ "title":"Almost", "url":"audio/Almost.ogg" },' +
+        '{ "title":"Beastmode", "url":"audio/Beastmode.ogg" },' +
+        '{ "title":"Gebet", "url":"audio/Gebet.ogg" },' +
+        '{ "title":"Dancebreak", "url":"audio/Dancebreak.ogg" },' +
+        '{ "title":"3er Split", "url":"audio/DreierSplit.ogg" },' +
+        '{ "title":"Dropset", "url":"audio/Dropset.ogg" },' +
+        '{ "title":"Eine Platte Mehr", "url":"audio/EinePlatteMehr.ogg" },' +
+        '{ "title":"Einer Geht Noch", "url":"audio/EinerGehtNoch.ogg" },' +
+        '{ "title":"For The Girls", "url":"audio/ForTheGirls.ogg" },' +
+        '{ "title":"Ganzkörpertag", "url":"audio/Ganzkörpertag.ogg" },' +
+        '{ "title":"Gib Alles", "url":"audio/GibAlles.ogg" },' +
+        '{ "title":"Kreatin", "url":"audio/Kreatin.ogg" },' +
+        '{ "title":"Lightweight!", "url":"audio/lightweight2.ogg" },' +
+        '{ "title":"Mantra", "url":"audio/MazeMantra.ogg" },' +
+        '{ "title":"No Cardio", "url":"audio/NoCardio.ogg" },' +
+        '{ "title":"Noch Ne Platte Drauf", "url":"audio/NochNePlatteDrauf.ogg" },' +
+        '{ "title":"No Warmup", "url":"audio/NoWarmup.ogg" },' +
+        '{ "title":"Reps For Jesus", "url":"audio/RepsForJesus.ogg" },' +
+        '{ "title":"Spot", "url":"audio/SpotMaze.ogg" },' +
+        '{ "title":"Swolcity", "url":"audio/Swolcity.ogg" } ]}';
+        
+        audio = $('audio')[0]
+        current = -1
+        tracks = JSON.parse(tracklist_json).tracks
+        
+        // set initial track
+        setNextTrax()
+        $('#title').html(tracks[current].title)
+        audio.src = tracks[current].url
+        audio.load()
+        audio.volume = .90
+        
+        // play next track when track ends
+        audio.addEventListener('ended', function(e) {
+        if (audio.src.includes("wait-for-it")) {
+        setNextTrax()
+        run(tracks[current].title,tracks[current].url)
+        } else {
+        run("wait for more ...","audio/wait-for-it-5s.mp3")
+        }
+        });
+        
+        function run(title, url) {
+        audio.src = url
+        $('#title').html(title)
+        audio.load()
+        audio.play()
+        }
+        
+        function setNextTrax(){
+        next = current
+        while (tracks.length > 1 && current == next) {
+        next = Math.floor(Math.random() * tracks.length)
+        }
+        current = next
+        // current++
+        // if (current == tracks.length){
+        // current = 0
+        // }
+        }
+        </script>
+    </body>
+</html>
